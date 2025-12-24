@@ -1,21 +1,24 @@
 import React, { useContext } from "react";
 import { NavigationContainer } from "@react-navigation/native";
+import { Provider } from "react-redux"; 
+import { store } from "./store/store"; 
 import AuthProvider, { AuthContext } from "./context/AuthContext";
 import AppDrawer from "./navigation/AppDrawer";
 import LoginScreen from "./screens/LoginScreen";
 
 function RootNavigator() {
   const { user } = useContext(AuthContext);
-  // Si user existe -> AppDrawer, sinon -> LoginScreen
   return user ? <AppDrawer /> : <LoginScreen />;
 }
 
 export default function App() {
   return (
-    <AuthProvider>
-      <NavigationContainer>
-        <RootNavigator />
-      </NavigationContainer>
-    </AuthProvider>
+    <Provider store={store}>
+      <AuthProvider>
+        <NavigationContainer>
+          <RootNavigator />
+        </NavigationContainer>
+      </AuthProvider>
+    </Provider>
   );
 }
