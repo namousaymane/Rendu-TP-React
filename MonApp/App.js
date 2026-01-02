@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { View, ActivityIndicator, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import NativeStack from "./navigation/NativeStack";
 
 import { initDB } from "./services/database";
 import { ThemeProvider, ThemeContext } from "./context/ThemeContext";
@@ -14,18 +15,13 @@ const Drawer = createDrawerNavigator();
 
 function MainNavigator() {
   const { theme } = useContext(ThemeContext);
-  
+
   return (
     <View style={[styles.container, theme === "dark" ? styles.dark : styles.light]}>
-      <Drawer.Navigator screenOptions={{ 
-        headerStyle: { backgroundColor: theme === 'dark' ? '#333' : '#fff' },
-        headerTintColor: theme === 'dark' ? '#fff' : '#000',
-        drawerStyle: { backgroundColor: theme === 'dark' ? '#333' : '#fff' },
-        drawerActiveTintColor: 'blue',
-        drawerInactiveTintColor: 'gray'
-      }}>
+      <Drawer.Navigator screenOptions={{ headerShown: true }}> 
         <Drawer.Screen name="API (Online)" component={TodoListFetchScreen} />
         <Drawer.Screen name="SQLite (Offline)" component={TodoListOfflineScreen} />
+        <Drawer.Screen name="Fonctionnalités natives" component={NativeStack} />
       </Drawer.Navigator>
     </View>
   );

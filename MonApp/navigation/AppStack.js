@@ -1,15 +1,16 @@
-import React from "react";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import TodoListScreen from "../screens/TodoListScreen";
-import TodoDetailsScreen from "../screens/TodoDetailsScreen";
+import { ThemeProvider } from "./context/ThemeContext";
+import { AuthProvider } from "./context/AuthContext";
+import AppStack from "./navigation/AppStack";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
-const Stack = createNativeStackNavigator();
-
-export default function AppStack() {
+export default function App() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Liste" component={TodoListScreen} />
-      <Stack.Screen name="Details" component={TodoDetailsScreen} />
-    </Stack.Navigator>
+    <SafeAreaProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <AppStack />
+        </AuthProvider>
+      </ThemeProvider>
+    </SafeAreaProvider>
   );
 }
